@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calcabetter</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+  <header>
+
+    <h1>☕ Calcabetter</h1>
+
+
+    <div class="top">
+
+      <span id="clock"></span>
+
+
+      <button onclick="toggleTheme()">
+        🌙
+      </button>
+
+
+    </div>
+
+  </header>
+
+
+
+
+
+  <div class="dashboard">
+
+
+
+
+
+    <aside class="left-panel">
+
+
+      <section class="card">
+
+        <h2>
+          History
+        </h2>
+
+
+        <input
+          id="historySearch"
+          placeholder="Search..."
+          oninput="searchHistory()"
+        >
+
+
+        <div id="history"></div>
+
+
+        <button onclick="clearHistory()">
+          Clear History
+        </button>
+
+
+      </section>
+
+
+
+
+
+      <section class="card">
+
+        <h2>
+          Notes
+        </h2>
+
+
+        <textarea
+          id="notes"
+          placeholder="Homework notes..."
+        ></textarea>
+
+
+      </section>
+
+
+    </aside>
+
+
+
+
+
+
+
+
+
+    <main class="workspace">
+
+
+
+      <div class="tabs">
+
+
+        <button onclick="showCalculator()">
+          Calculator
+        </button>
+
+
+        <button onclick="showAlgebra()">
+          Algebra
+        </button>
+
+
+        <button onclick="showGraph()">
+          Graph
+        </button>
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+      <section id="calculatorPage">
+
+
+        <div class="display">
+
+
+          <div id="old"></div>
+
+
+          <input
+            id="display"
+            value="0"
+            readonly
+          >
+
+
+        </div>
+
+
+
+
+
+        <div class="memory">
+
+          <button onclick="memoryClear()">MC</button>
+
+          <button onclick="memoryRecall()">MR</button>
+
+          <button onclick="memoryAdd()">M+</button>
+
+          <button onclick="memorySubtract()">M-</button>
+
+        </div>
+
+
+
+
+
+
+
+        <div class="buttons">
+
+
+          <button onclick="clearDisplay()">AC</button>
+
+          <button onclick="backspace()">⌫</button>
+
+          <button onclick="squareRoot()">√</button>
+
+          <button class="operator" onclick="append('/')">÷</button>
+
+
+          <button onclick="append('7')">7</button>
+
+          <button onclick="append('8')">8</button>
+
+          <button onclick="append('9')">9</button>
+
+          <button class="operator" onclick="append('*')">×</button>
+
+
+          <button onclick="append('4')">4</button>
+
+          <button onclick="append('5')">5</button>
+
+          <button onclick="append('6')">6</button>
+
+          <button class="operator" onclick="append('-')">−</button>
+
+
+          <button onclick="append('1')">1</button>
+
+          <button onclick="append('2')">2</button>
+
+          <button onclick="append('3')">3</button>
+
+          <button class="operator" onclick="append('+')">+</button>
+
+
+          <button onclick="toggleSquare()">x²</button>
+
+          <button onclick="append('0')">0</button>
+
+          <button onclick="append('.')">.</button>
+
+          <button class="equals" onclick="calculate()">=</button>
+
+
+        </div>
+
+
+      </section>
+
+
+
+
+
+
+
+
+
+      <section id="algebraPage" style="display:none">
+
+
+        <div class="card algebra">
+
+
+          <h2>
+            Algebra Helper
+          </h2>
+
+
+          <input
+            id="equation"
+            placeholder="Example: 2x+5=15"
+          >
+
+
+          <button onclick="solveEquation()">
+            Solve
+          </button>
+
+
+          <div id="solution"></div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+
+
+
+
+
+
+      <section id="graphPage" style="display:none">
+
+
+        <div class="card">
+
+
+          <h2>
+            Graphing Calculator
+          </h2>
+
+
+          <p>
+            Enter an equation:
+          </p>
+
+
+          <code>
+            y=2x+3
+          </code>
+
+
+          <input
+            id="graphInput"
+            placeholder="y=mx+b"
+          >
+
+
+          <button onclick="drawGraph()">
+            Graph
+          </button>
+
+
+
+
+
+          <div class="graph-controls">
+
+
+            <button onclick="zoomIn()">
+              +
+            </button>
+
+
+            <button onclick="zoomOut()">
+              −
+            </button>
+
+
+            <button onclick="resetZoom()">
+              Reset
+            </button>
+
+
+          </div>
+
+
+
+
+
+          <div class="graph-container">
+
+
+            <canvas
+              id="graphCanvas"
+              width="700"
+              height="500">
+            </canvas>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+
+
+
+    </main>
+
+
+
+
+
+
+
+
+
+    <aside class="right-panel">
+
+
+      <section class="card timer">
+
+
+        <h2>
+          Timer
+        </h2>
+
+
+
+        <input
+          id="timerInput"
+          type="number"
+          value="25"
+          min="1"
+        >
+
+
+
+        <div id="timer">
+          25:00
+        </div>
+
+
+
+
+        <button onclick="startTimer()">
+          Start
+        </button>
+
+
+
+        <button onclick="stopTimer()">
+          Pause
+        </button>
+
+
+
+        <button onclick="resetTimer()">
+          Reset
+        </button>
+
+
+
+      </section>
+
+
+    </aside>
+
+
+
+
+
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="js/history.js"></script>
+
+<script src="js/calculator.js"></script>
+
+<script src="js/algebra.js"></script>
+
+<script src="js/graph.js"></script>
+
+<script src="js/timer.js"></script>
+
+<script src="js/notes.js"></script>
+
+<script src="js/themes.js"></script>
+
+<script src="js/app.js"></script>
+
+
+
+</body>
+
+</html>
